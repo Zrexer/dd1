@@ -41,17 +41,17 @@ def Main(msg):
     
     if text.startswith('/set_do'):
         domain = text.replace('/set_do ', '')
-        port = domain.replace('/set_port ', '')
-        forx = port.replace('/set_for ', '')
+        port = int(domain.split()[1])
+        forx = str(domain.split()[3])
         
         domain_ = socket.gethostbyname(domain)
         
         app.reply_to(msg, f'Domain: {domain}\nPort: {port}\nIP: {domain_}')
         app.reply_to(msg, "Start Process ...")
         
-        res = start(domain_, int(port), 1000 if forx == "" else int(forx))
+        res = start(domain_, port, 1000 if forx == "" else int(forx))
         
         app.reply_to(msg, "Sended: {}".format(res))
-        
-        
-        
+
+
+app.infinity_polling()
